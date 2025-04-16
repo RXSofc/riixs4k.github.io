@@ -1,47 +1,111 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>riixs4k</title>
+    <title>Profil Bisnis</title>
     <style>
         body {
-            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
             font-family: Arial, sans-serif;
-            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            height: 100vh;
+        }.container {
+        text-align: center;
+        margin-top: 100px;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 36px;
+        color: #333;
+        margin-bottom: 20px;
+        transition: transform 2s ease;
+    }
+
+    .logo {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: transform 2s ease;
+    }
+
+    .zoom-out {
+        transform: scale(0.1);
+    }
+
+    #troll-text {
+        font-size: 32px;
+        margin-top: 30px;
+        display: none;
+        font-weight: bold;
+        animation: zoomColor 0.4s infinite;
+    }
+
+    @keyframes zoomColor {
+        0% {
+            transform: scale(1);
+            color: red;
         }
-        .trap {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background-size: cover;
-            cursor: pointer;
-            display: inline-block;
+        25% {
+            transform: scale(1.2);
+            color: blue;
         }
-    </style>
+        50% {
+            transform: scale(1);
+            color: lime;
+        }
+        75% {
+            transform: scale(1.2);
+            color: orange;
+        }
+        100% {
+            transform: scale(1);
+            color: red;
+        }
+    }
+</style>
+
 </head>
 <body>
+    <div class="container" onclick="playAudio()">
+        <h1 id="judul">Selamat Datang di Profil Bisnis Kami</h1>
+        <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png" alt="Logo Profil" class="logo">
+        <div id="troll-text"></div>
+        <audio id="audio" preload="auto" loop>
+            <source src="https://od.lk/s/OV8yNDgzMzg4MDBf/Prank%20sound%20desah%20halal.mp3" type="audio/mpeg">
+            Lagu tidak didukung browser.
+        </audio>
+    </div><script>
+    function playAudio() {
+        const audio = document.getElementById("audio");
+        const judul = document.getElementById("judul");
+        const logo = document.getElementById("logo");
+        const trollText = document.getElementById("troll-text");
 
-    <h2>Klik gambar di bawah ini!
-    untuk menampilkan profil</h2>
-    <div class="trap" id="trapImage"></div>
-    <audio id="trapAudio" loop>
-        <source src="https://od.lk/s/OV8yNDgzMzg4MDBf/Prank%20sound%20desah%20halal.mp3" type="audio/mpeg">
-    </audio>
+        audio.play();
+        judul.classList.add("zoom-out");
+        logo.classList.add("zoom-out");
+        trollText.style.display = "block";
 
-    <script>
-        // Set gambar online
-        document.getElementById("trapImage").style.backgroundImage = "url('https://od.lk/s/OV8yNDgzMzg1MzNf/images.png')";
+        // Cegah jeda atau stop
+        document.body.addEventListener("keydown", e => e.preventDefault());
+        document.body.addEventListener("contextmenu", e => e.preventDefault());
+        document.body.addEventListener("visibilitychange", () => {
+            if (document.hidden) document.location.reload();
+        });
 
-        document.getElementById("trapImage").addEventListener("click", function() {
-            let audio = document.getElementById("trapAudio");
-            audio.play();
-
-            // Cegah pengguna menjeda musik
-            audio.addEventListener("pause", function() {
-                audio.play();
-            });
-    </script>
+        // Cegah pause
+        audio.onpause = () => audio.play();
+        audio.onended = () => audio.play();
+    }
+</script>
 
 </body>
 </html>
